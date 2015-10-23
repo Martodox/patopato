@@ -11,7 +11,7 @@ module.exports = (req) ->
   _request = req.body
 
   fs.writeFile './logs/' + new Date().getTime(), JSON.stringify req.body
-  logStream = fs.createWriteStream(__dirname + '/' + logName, flags: 'a')
+  logStream = fs.createWriteStream('./' + logName, flags: 'a')
 
   logStream.write(new Date().toString() + ' ' + (JSON.stringify req.body) + '\n')
   logStream.end()
