@@ -1,9 +1,16 @@
 promise = require 'promised-io'
 Deferred = require("promised-io/promise").Deferred
 
-module.exports = ->
+_request = {}
+
+fs = require 'fs'
+
+module.exports = (req) ->
 
 
+  _request = req.body
+
+  fs.writeFile './logs/' + new Date().getTime(), JSON.stringify req.body
 
   deferred = new Deferred()
 

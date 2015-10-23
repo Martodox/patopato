@@ -1,19 +1,20 @@
-express = require 'express'
-app     = express()
+express     = require 'express'
+app         = express()
+bodyParser  = require 'body-parser'
 
 
 requestParser = require './parsers/requestParser'
 
 
+app.use(bodyParser.json())
 
-app.get '/', (req, res) ->
+
+app.all '/', (req, res) ->
 
   requestParser(req).then ->
     res.send 'Hello'
   , ->
     res.send 'No hellp'
-
-
 
 
 
