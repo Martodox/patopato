@@ -23,7 +23,7 @@ app.all '/', (req, res) ->
 
     responseService.reset(serverStatus).then ->
 
-      budget.calculateTotalBudget()
+      budget.calculateTotalBudget(serverStatus)
 
 
 
@@ -45,7 +45,7 @@ app.all '/', (req, res) ->
 
 
 
-      res.json response.get()
+      res.json responseService.get()
 
 
 

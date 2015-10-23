@@ -21,31 +21,10 @@ _newServerStatus = {}
 
 module.exports =
 
-  getTotalCost: ->
-    _total = 0
-
-    _total = _total + _newResponse.amountOfMyShips * 50
-
-    _total = _total + _newResponse.amountOfMyDefensiveSystems * 50
-
-    if _newResponse.upgradeMine
-      _total = _total + exreq.myResources.mine.upgradeCost
-
-    if _newResponse.upgradeLaboratory
-      _total = _total + exreq.myResources.laboratory.upgradeCost
-
-    if _newResponse.upgradeCounterintelligence
-      _total = _total + exreq.myResources.counterintelligence.upgradeCost
-
-    if _newResponse.upgradeShield
-      _total = _total + exreq.myResources.shield.upgradeCost
-
-
 
   reset: (req) ->
     deferred = new Deferred()
 
-    budget = 5000 + (req.playerStats.myResources.mine.lvl - 1) * 500
 
     _newResponse = deepcopy _defaultResponse
 
@@ -56,27 +35,39 @@ module.exports =
     return deferred.promise
 
   upgradeLab: ->
-    _newResponse['upgradeLaboratory'] = true
+    if budgetService.tryPurchase(_newServerStatus.playerStats.myResources.laboratory.upgradeCost)
+      _newResponse['upgradeLaboratory'] = true
+      budgetService.addPurchase(_newServerStatus.playerStats.myResources.laboratory.upgradeCost)
 
   upgradeMine: ->
-    _newResponse['upgradeMine'] = true
+    if budgetService.tryPurchase(_newServerStatus.playerStats.myResources.mine.upgradeCost)
+      _newResponse['upgradeMine'] = true
+      budgetService.addPurchase(_newServerStatus.playerStats.myResources.mine.upgradeCost)
 
   upgradeShield: ->
-    _newResponse['upgradeShield'] = true
+    if budgetService.tryPurchase(_newServerStatus.playerStats.myResources.shield.upgradeCost)
+      _newResponse['upgradeShield'] = true
+      budgetService.addPurchase(_newServerStatus.playerStats.myResources.shield.upgradeCost)
 
   attack: ->
-    _newResponse['attack'] = true
+    if budgetService.tryPurchase(400)
+      _newResponse['attack'] = true
+      budgetService.addPurchase(400)
 
   upgradeWywiad: ->
-    _newResponse['upgradeCounterintelligence'] = true
+    if budgetService.tryPurchase(_newServerStatus.playerStats.myResources.counterintelligence.upgradeCost)
+      _newResponse['upgradeCounterintelligence'] = true
+      budgetService.addPurchase(_newServerStatus.playerStats.myResources.counterintelligence.upgradeCost)
 
   addShips: (ammount) ->
-    _newResponse['amountOfMyShips'] = ammount
-    budgetService.addPurchase(50 * ammount)
+    if budgetService.tryPurchase(50 * ammount)
+      _newResponse['amountOfMyShips'] = ammount
+      budgetService.addPurchase(50 * ammount)
 
   addDefence: (ammount) ->
-    _newResponse['amountOfMyDefensiveSystems'] = ammount
-    budgetService.addPurchase(50 * ammount)
+    if budgetService.tryPurchase(50 * ammount)
+      _newResponse['amountOfMyDefensiveSystems'] = ammount
+      budgetService.addPurchase(50 * ammount)
 
 
   buyMax: (what) ->
