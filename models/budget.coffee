@@ -6,11 +6,11 @@ module.exports =
   getBudget: ->
     return _budget
 
-  tryPurchase: (amount)->
-    _budget - amount  > 0
+  tryPurchase: (amount) ->
+    return _budget - amount  >= 0
 
-  addPurchase: (amount)->
-    _budget -= amount
+  addPurchase: (amount) ->
+    return _budget -= amount
 
   calculateTotalBudget: (serverStatus) ->
     _budget = serverStatus.playerStats.budget + serverStatus.playerStats.budgetBonus
