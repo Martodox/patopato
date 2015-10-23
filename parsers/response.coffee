@@ -31,13 +31,19 @@ module.exports =
 
     _newServerStatus = req
 
-    defenceService.updateNum(_newServerStatus.playerStats.myResources.myDefensiveSystemsStats.amount)
-    shipService.updateNum(_newServerStatus.playerStats.myResources.myShipsStats.amount)
-
-
     deferred.resolve()
 
     return deferred.promise
+
+  getLostShipNum: ->
+    shipService.numLost(_newServerStatus.playerStats.myResources.myDefensiveSystemsStats.amount)
+
+  getLostDefenceNum: ->
+    defenceService.numLost(_newServerStatus.playerStats.myResources.myDefensiveSystemsStats.amount)
+
+  setCurrentDefAndShips: ->
+    defenceService.updateNum(_newServerStatus.playerStats.myResources.myDefensiveSystemsStats.amount)
+    shipService.updateNum(_newServerStatus.playerStats.myResources.myShipsStats.amount)
 
   upgradeLab: ->
     if budgetService.tryPurchase(_newServerStatus.playerStats.myResources.laboratory.upgradeCost)

@@ -9,7 +9,7 @@ module.exports =
     _defence = newNum
 
   numLost: (newNum) ->
-    _Defence - newNum
+    _defence - newNum
 
   add: (num) ->
     _defence + num

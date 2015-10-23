@@ -18,7 +18,6 @@ responseService = require './parsers/response'
 app.use(bodyParser.json())
 
 
-
 app.all '/', (req, res) ->
 
   requestParser(req).then (serverStatus) ->
@@ -26,6 +25,9 @@ app.all '/', (req, res) ->
     responseService.reset(serverStatus).then ->
 
       budget.calculateTotalBudget(serverStatus)
+      lostShipNum = responseService.getLostShipNum()
+      lostDefenceNum = responseService.getLostDefenceNum()
+      responseService.setCurrentDefAndShips()
 
       if(serverStatus.playerStats.round is 20)
         responseService.upgradeMine()
