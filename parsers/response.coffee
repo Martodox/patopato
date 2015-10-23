@@ -66,7 +66,7 @@ module.exports =
 
   addShips: (ammount) ->
     if budgetService.tryPurchase(50 * ammount)
-      shipService.add(amount)
+      shipService.add(ammount)
       _newResponse['amountOfMyShips'] = ammount
       budgetService.addPurchase(50 * ammount)
 
