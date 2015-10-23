@@ -1,5 +1,6 @@
 promise = require 'promised-io'
 Deferred = require("promised-io/promise").Deferred
+logger = require('../services/logger').logger
 
 _request = {}
 
@@ -9,11 +10,7 @@ logName = 'request_logs.log'
 module.exports = (req) ->
 
   _request = req.body
-
-  logStream = fs.createWriteStream('./' + logName, flags: 'a')
-
-  logStream.write(new Date().toString() + ' ' + (JSON.stringify req.body) + '\n')
-  logStream.end()
+  logger.info(JSON.stringify req.body)
 
   deferred = new Deferred()
 
