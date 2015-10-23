@@ -21,6 +21,9 @@ app.all '/', (req, res) ->
 
     response.reset().then ->
 
+
+
+
       res.json response.get()
 
 
