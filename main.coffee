@@ -9,15 +9,19 @@ port = process.env.PORT || 3000
 requestParser = require './parsers/requestParser'
 
 
+response = require './parsers/response'
+
+
 app.use(bodyParser.json())
 
 
 app.all '/', (req, res) ->
 
   requestParser(req).then ->
-    res.send 'Hello'
-  , ->
-    res.send 'No hellp'
+
+    response.reset().then ->
+
+      res.json response.get()
 
 
 
