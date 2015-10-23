@@ -15,7 +15,7 @@ module.exports = (req) ->
 
   deferred = new Deferred()
 
-  deferred.resolve()
+  deferred.resolve(_request)
 
 
   return deferred.promise

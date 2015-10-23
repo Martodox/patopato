@@ -18,6 +18,32 @@ _newResponse = {}
 
 
 module.exports =
+
+  getTotalCost: ->
+    _total = 0
+
+    _total = _total + _newResponse.amountOfMyShips * 50
+
+    _total = _total + _newResponse.amountOfMyDefensiveSystems * 50
+
+    if _newResponse.upgradeMine
+      _total = _total + exreq.myResources.mine.upgradeCost
+
+    if _newResponse.upgradeLaboratory
+      _total = _total + exreq.myResources.laboratory.upgradeCost
+
+    if _newResponse.upgradeCounterintelligence
+      _total = _total + exreq.myResources.counterintelligence.upgradeCost
+
+    if _newResponse.upgradeShield
+      _total = _total + exreq.myResources.shield.upgradeCost
+
+
+
+
+
+
+
   reset: ->
     deferred = new Deferred()
 

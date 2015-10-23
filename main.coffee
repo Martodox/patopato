@@ -18,8 +18,19 @@ app.use(bodyParser.json())
 app.all '/', (req, res) ->
 
   requestParser(req).then ->
+    GLOBAL.exreq = req
+
+    #GLOBAL.budget = req.playerStats.budget + req.playerStats.budgetBonus
 
     response.reset().then ->
+#      response.upgradeShield()
+#
+#      response.upgradeMine()
+#
+#      response.upgradeWywiad()
+#
+      response.addDefence 100
+
 
 
 
