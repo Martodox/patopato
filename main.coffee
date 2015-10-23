@@ -2,9 +2,17 @@ express = require 'express'
 app     = express()
 
 
+requestParser = require './parsers/requestParser'
+
+
 
 app.get '/', (req, res) ->
-  res.send 'Hello'
+
+  requestParser(req).then ->
+    res.send 'Hello'
+  , ->
+    res.send 'No hellp'
+
 
 
 
