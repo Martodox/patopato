@@ -31,7 +31,7 @@ app.all '/', (req, res) ->
 
 
 
-      if getLostDefenceNum > 0
+      if lostDefenceNum > 0
         responseService.attack()
         responseService.buyMax('ships')
       else
