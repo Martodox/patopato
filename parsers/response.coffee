@@ -44,8 +44,10 @@ module.exports =
 
 
 
-  reset: ->
+  reset: (req) ->
     deferred = new Deferred()
+
+    budget = 5000 + (req.playerStats.myResources.mine.lvl - 1) * 500
 
     _newResponse = deepcopy _defaultResponse
     deferred.resolve()

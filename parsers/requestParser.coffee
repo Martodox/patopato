@@ -14,6 +14,8 @@ module.exports = (req) ->
 
   deferred = new Deferred()
 
+  GLOBAL.exreq = _request
+
   deferred.resolve(_request)
 
 

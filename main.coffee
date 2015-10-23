@@ -6,8 +6,10 @@ port = process.env.PORT || 3000
 
 
 
+
 requestParser = require './parsers/requestParser'
 
+budget = require './models/budget'
 
 response = require './parsers/response'
 
@@ -17,18 +19,22 @@ app.use(bodyParser.json())
 
 app.all '/', (req, res) ->
 
-  requestParser(req).then ->
-    GLOBAL.exreq = req
+  requestParser(req).then (serverStatus) ->
 
-    #GLOBAL.budget = req.playerStats.budget + req.playerStats.budgetBonus
+    response.reset(serverStatus).then ->
 
-    response.reset().then ->
-#      response.upgradeShield()
-#
-#      response.upgradeMine()
-#
-#      response.upgradeWywiad()
-#
+      budget.calculateTotalBudget(serverStatus)
+
+
+
+
+
+      response.upgradeShield()
+
+      response.upgradeMine()
+
+      response.upgradeWywiad()
+
       response.addDefence 100
 
 
