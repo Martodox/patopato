@@ -2,6 +2,8 @@ deepcopy = require 'deepcopy'
 promise = require 'promised-io'
 Deferred = require("promised-io/promise").Deferred
 budgetService = require '../models/budget'
+defenceService = require '../models/defenceNumber'
+shipService = require '../models/shipsNumber'
 
 
 _defaultResponse =
@@ -25,10 +27,13 @@ module.exports =
   reset: (req) ->
     deferred = new Deferred()
 
-
     _newResponse = deepcopy _defaultResponse
 
     _newServerStatus = req
+
+    defenceService.updateNum(_newServerStatus.playerStats.myResources.myDefensiveSystemsStats.amount)
+    shipService.updateNum(_newServerStatus.playerStats.myResources.myShipsStats.amount)
+
 
     deferred.resolve()
 
@@ -61,14 +66,15 @@ module.exports =
 
   addShips: (ammount) ->
     if budgetService.tryPurchase(50 * ammount)
+      shipService.add(amount)
       _newResponse['amountOfMyShips'] = ammount
       budgetService.addPurchase(50 * ammount)
 
   addDefence: (ammount) ->
     if budgetService.tryPurchase(50 * ammount)
+      defenceService.add(ammount)
       _newResponse['amountOfMyDefensiveSystems'] = ammount
       budgetService.addPurchase(50 * ammount)
-
 
   buyMax: (what) ->
     _funds = Math.floor(budgetService.getBudget() / 50)
@@ -81,7 +87,6 @@ module.exports =
         _newResponse['amountOfMyDefensiveSystems'] = _funds
 
       budgetService.addPurchase(50 * _funds)
-
 
   get: ->
     return _newResponse
