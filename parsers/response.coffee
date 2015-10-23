@@ -45,9 +45,9 @@ module.exports =
     defenceService.updateNum(_newServerStatus.playerStats.myResources.myDefensiveSystemsStats.amount)
     shipService.updateNum(_newServerStatus.playerStats.myResources.myShipsStats.amount)
 
-  upgradeLab: ->
+  upgradeLab: (round)->
     if budgetService.tryPurchase(_newServerStatus.playerStats.myResources.laboratory.upgradeCost)
-      _newResponse['upgradeLaboratory'] = true
+      round % 2 == 0 ? _newResponse['upgradeLaboratory'] = 'UpgradeDefense' : _newResponse['upgradeLaboratory'] = 'UpgradeAttack'
       budgetService.addPurchase(_newServerStatus.playerStats.myResources.laboratory.upgradeCost)
 
   upgradeMine: ->

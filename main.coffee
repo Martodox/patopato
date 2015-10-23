@@ -29,22 +29,18 @@ app.all '/', (req, res) ->
       lostDefenceNum = responseService.getLostDefenceNum()
       responseService.setCurrentDefAndShips()
 
-      if(serverStatus.playerStats.round is 20)
-        responseService.upgradeMine()
-        responseService.upgradeShield()
-        responseService.addDefence(46)
-      else
-        responseService.upgradeShield()
 
-        responseService.upgradeMine()
 
-        responseService.upgradeWywiad()
-
-        responseService.upgradeLab()
-
-        responseService.addDefence(30)
-
+      if getLostDefenceNum > 0
+        responseService.attack()
         responseService.buyMax('ships')
+      else
+        responseService.upgradeMine()
+        responseService.upgradeShield()
+        responseService.upgradeLab(serverStatus.playerStats.round)
+        responseService.buyMax('deffence')
+        #responseService.upgradeWywiad()
+
 
       res.json responseService.get()
 
