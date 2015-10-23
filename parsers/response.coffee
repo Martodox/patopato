@@ -1,7 +1,7 @@
 deepcopy = require 'deepcopy'
 promise = require 'promised-io'
 Deferred = require("promised-io/promise").Deferred
-
+budget = require './models/budget'
 
 
 _defaultResponse =
@@ -40,10 +40,6 @@ module.exports =
 
 
 
-
-
-
-
   reset: (req) ->
     deferred = new Deferred()
 
@@ -77,11 +73,4 @@ module.exports =
 
   get: ->
     return _newResponse
-
-
-
-
-
-
-
 
