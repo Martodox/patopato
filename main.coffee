@@ -1,6 +1,7 @@
 express     = require 'express'
 app         = express()
 bodyParser  = require 'body-parser'
+priorities  = require './models/priorities'
 
 port = process.env.PORT || 3000
 
@@ -43,11 +44,10 @@ app.all '/', (req, res) ->
 
         responseService.buyMax('ships')
 
-
       res.json responseService.get()
 
 
 
 server = app.listen port, ->
   console.log 'slucham'
-
+  priorities.updatePriority 'mine', 10

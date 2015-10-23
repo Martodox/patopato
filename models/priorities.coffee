@@ -1,5 +1,3 @@
-_ = require 'lodash'
-
 Array::move = (old_index, new_index) ->
   while old_index < 0
     old_index += @length
@@ -21,5 +19,8 @@ module.exports =
 
   updatePriority: (element, new_priority)->
     old_index = _priority.indexOf(element)
-    _priority.move(old_index, new_priority)
-    console.log _priority
+    if(new_priority >= _priority.length)
+      _priority.move(old_index, -1)
+    else
+      _priority.move(old_index, new_priority)
+    _priority
