@@ -11,7 +11,7 @@ requestParser = require './parsers/requestParser'
 
 budget = require './models/budget'
 
-response = require './parsers/response'
+responseService = require './parsers/response'
 
 
 app.use(bodyParser.json())
@@ -21,21 +21,25 @@ app.all '/', (req, res) ->
 
   requestParser(req).then (serverStatus) ->
 
-    response.reset(serverStatus).then ->
+    responseService.reset(serverStatus).then ->
 
-      budget.calculateTotalBudget(serverStatus)
-
-
+      budget.calculateTotalBudget()
 
 
 
-      response.upgradeShield()
 
-      response.upgradeMine()
 
-      response.upgradeWywiad()
+      responseService.upgradeShield()
 
-      response.addDefence 100
+      responseService.upgradeMine()
+
+      responseService.upgradeWywiad()
+
+      responseService.upgradeLab()
+
+      responseService.addDefence(30)
+
+      responseService.buyMax('ships')
 
 
 
