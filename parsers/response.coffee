@@ -9,4 +9,4 @@ _defaultResponse =
 
 
 
-module.exports ->
+module.exports = ->
