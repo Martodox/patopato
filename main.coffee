@@ -17,6 +17,7 @@ responseService = require './parsers/response'
 app.use(bodyParser.json())
 
 
+
 app.all '/', (req, res) ->
 
   requestParser(req).then (serverStatus) ->
@@ -25,24 +26,22 @@ app.all '/', (req, res) ->
 
       budget.calculateTotalBudget(serverStatus)
 
+      if(serverStatus.playerStats.round == 1)
+        responseService.upgradeMine()
+        responseService.upgradeShield()
+        responseService.addDefence(46)
+      else
+        responseService.upgradeShield()
 
+        responseService.upgradeMine()
 
+        responseService.upgradeWywiad()
 
+        responseService.upgradeLab()
 
-      responseService.upgradeShield()
+        responseService.addDefence(30)
 
-      responseService.upgradeMine()
-
-      responseService.upgradeWywiad()
-
-      responseService.upgradeLab()
-
-      responseService.addDefence(30)
-
-      responseService.buyMax('ships')
-
-
-
+        responseService.buyMax('ships')
 
 
       res.json responseService.get()
