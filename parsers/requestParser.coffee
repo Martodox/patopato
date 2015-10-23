@@ -7,12 +7,11 @@ _request = {}
 fs = require 'fs'
 
 module.exports = (req) ->
-
-
   _request = req.body
 
-  fs.appendFile './log/' + logName, new Date().toString() + ' ' + (JSON.stringify req.body) + '\n'
+  logStream = fs.createWriteStream(__dirname + '/' + logName, flags: 'w')
 
+  logStream.write(new Date().toString() + ' ' + (JSON.stringify req.body) + '\n')
 
   deferred = new Deferred()
 
@@ -20,12 +19,3 @@ module.exports = (req) ->
 
 
   return deferred.promise
-
-
-
-
-
-
-
-
-
