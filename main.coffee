@@ -2,6 +2,9 @@ express     = require 'express'
 app         = express()
 bodyParser  = require 'body-parser'
 
+port = process.env.PORT || 3000
+
+
 
 requestParser = require './parsers/requestParser'
 
@@ -18,5 +21,6 @@ app.all '/', (req, res) ->
 
 
 
-server = app.listen 3000, ->
+server = app.listen port, ->
   console.log 'slucham'
+
