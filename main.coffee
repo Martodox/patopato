@@ -48,4 +48,3 @@ app.all '/', (req, res) ->
 
 server = app.listen port, ->
   console.log 'slucham'
-  priorities.updatePriority 'mine', 10
