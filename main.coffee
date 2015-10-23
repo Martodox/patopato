@@ -27,7 +27,7 @@ app.all '/', (req, res) ->
 
       budget.calculateTotalBudget(serverStatus)
 
-      if(serverStatus.playerStats.round == 1)
+      if(serverStatus.playerStats.round is 20)
         responseService.upgradeMine()
         responseService.upgradeShield()
         responseService.addDefence(46)
