@@ -35,6 +35,7 @@ module.exports =
 
     if _newServerStatus.playerStats.round is 20
       reseter()
+      console.log '!!!!!!!!!!!!!!!resetuje gre!!!!!!!!!!!'
 
 
 
