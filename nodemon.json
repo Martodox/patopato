@@ -3,7 +3,8 @@
   "ignore": [
     "*.test.js",
     "frontend/*",
-    "public/*"
+    "public/*",
+    "*.log"
   ],
   "execMap": {
     "rb": "ruby",
