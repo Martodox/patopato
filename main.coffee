@@ -2,10 +2,9 @@ express     = require 'express'
 app         = express()
 bodyParser  = require 'body-parser'
 priorities  = require './models/priorities'
+shouldAttack = require './models/attackManager'
 
 port = process.env.PORT || 3000
-
-shouldAttack = false
 
 
 requestParser = require './parsers/requestParser'
@@ -24,17 +23,14 @@ app.all '/', (req, res) ->
 
     responseService.reset(serverStatus).then ->
 
-
-
-
       budget.calculateTotalBudget(serverStatus)
       lostShipNum = responseService.getLostShipNum()
       lostDefenceNum = responseService.getLostDefenceNum()
       responseService.setCurrentDefAndShips()
 
 
-      if lostDefenceNum > 0 || shouldAttack
-        shouldAttack = true
+      if lostDefenceNum > 0 || shouldAttack.shouldAttack() || serverStatus.playerStats.round <= 2
+        shouldAttack.setAttack()
         responseService.attack()
         responseService.buyMax('ships')
       else
