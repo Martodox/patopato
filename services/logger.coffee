@@ -1,9 +1,8 @@
-winston = require('winston')
+fs = require 'fs'
 
-module.exports = {
-  logger: new (winston.Logger)({
-    transports: [
-      new (winston.transports.Console)({'timestamp':true})
-    ]
-  })
-}
+module.exports = (req) ->
+  _toSave = req + ','
+  logStream = fs.createWriteStream('./fightLog.log', flags: 'a')
+  logStream.write _toSave
+  logStream.end()
+
