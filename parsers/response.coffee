@@ -54,7 +54,12 @@ module.exports =
 
   upgradeLab: (round)->
     if budgetService.tryPurchase(_newServerStatus.playerStats.myResources.laboratory.upgradeCost)
-      round % 2 == 0 ? _newResponse['upgradeLaboratory'] = 'UpgradeDefense' : _newResponse['upgradeLaboratory'] = 'UpgradeAttack'
+
+      if round % 2 is 0
+        _newResponse['upgradeLaboratory'] = 'UpgradeDefense'
+      else
+        _newResponse['upgradeLaboratory'] = 'UpgradeAttack'
+
       budgetService.addPurchase(_newServerStatus.playerStats.myResources.laboratory.upgradeCost)
 
   upgradeMine: ->
