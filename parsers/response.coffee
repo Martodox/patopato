@@ -5,6 +5,8 @@ budgetService = require '../models/budget'
 defenceService = require '../models/defenceNumber'
 shipService = require '../models/shipsNumber'
 
+reseter = require '../services/resetGame'
+
 
 _defaultResponse =
   amountOfMyShips:            0
@@ -30,6 +32,11 @@ module.exports =
     _newResponse = deepcopy _defaultResponse
 
     _newServerStatus = req
+
+    if _newServerStatus.playerStats.round is 20
+      reseter()
+
+
 
     deferred.resolve()
 

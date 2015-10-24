@@ -2,6 +2,9 @@ _ships = 0
 
 module.exports =
 
+  resetShips: ->
+    _ships = 0
+
   getPreviousRoundNum: ->
     return _ships
 

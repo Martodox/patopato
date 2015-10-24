@@ -2,6 +2,9 @@ _defence = 0
 
 module.exports =
 
+  resetDefence: ->
+    _defence = 0
+
   getPreviousRoundNum: ->
     return _defence
 
