@@ -5,7 +5,7 @@ priorities  = require './models/priorities'
 
 port = process.env.PORT || 3000
 
-
+shouldAttack = false
 
 
 requestParser = require './parsers/requestParser'
@@ -33,7 +33,8 @@ app.all '/', (req, res) ->
       responseService.setCurrentDefAndShips()
 
 
-      if lostDefenceNum > 0
+      if lostDefenceNum > 0 || shouldAttack
+        shouldAttack = true
         responseService.attack()
         responseService.buyMax('ships')
       else
