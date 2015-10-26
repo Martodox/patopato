@@ -1,1 +1,1 @@
-? Zajebisty projekt
+### repository for siriuscoding hackaton main task
